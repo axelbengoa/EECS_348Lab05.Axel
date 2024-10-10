@@ -2,43 +2,7 @@
 #include <stdlib.h>
 
 
-// Function declarations
-void printMonthlySalesReport(double sales[]);
-void printSalesSummaryReport(double sales[]);
-void printSixMonthMovingAverage(double sales[]);
-void printSalesReportDescending(double sales[], char *months[]);
-void readSalesFromFile(double sales[], const char *filename);
 
-int main() {
-    double sales[12]; // Declare an array to hold sales data
-    char *months[12] = {
-        "January", "February", "March", "April", "May", "June", 
-        "July", "August", "September", "October", "November", "December"
-    };
-
-    // Prompt the user to enter the filename
-    char filename[100]; // Array to hold the filename
-    printf("Enter the filename containing sales data: ");
-    scanf("%99s", filename); // Read the filename from user input
-
-    // Reading sales data from the file
-    readSalesFromFile(sales, filename);
-
-    // Generate the reports 
-    printf("Monthly Sales Report for 2024\n");
-    printMonthlySalesReport(sales);
-
-    printf("\nSales Summary Report:\n");
-    printSalesSummaryReport(sales);
-
-    printf("\nSix-Month Moving Average Report:\n");
-    printSixMonthMovingAverage(sales);
-
-    printf("\nSales Report (Highest to Lowest):\n");
-    printSalesReportDescending(sales, months);
-
-    return 0;
-}
 
 void readSalesFromFile(double sales[], const char *filename) {
     FILE *file = fopen(filename, "r"); // Open the file for reading
@@ -99,7 +63,7 @@ void printSalesSummaryReport(double sales[]) {
 }
 
 void printSixMonthMovingAverage(double sales[]) {
-    for (int i = 0; i <= 12 - 6; i++) { // Calculate moving average
+    for (int i = 0; i <= 12 - 6; i++) { // Calculate average
         double total = 0.0;
         for (int j = i; j < i + 6; j++) {
             total += sales[j];
@@ -145,4 +109,34 @@ void printSalesReportDescending(double sales[], char *months[]) {
     for(int i = 0; i < 12; i++) {
         printf("%-10s $%.2f\n", sortedMonths[i], sortedSales[i]);
     }
+}
+int main() {
+    double sales[12]; // Declare an array to hold sales data
+    char *months[12] = {
+        "January", "February", "March", "April", "May", "June", 
+        "July", "August", "September", "October", "November", "December"
+    };
+
+    // Prompt the user to enter the filename
+    char filename[100]; // Array to hold the filename
+    printf("Enter the filename containing sales data: ");
+    scanf("%99s", filename); // Read the filename from user input
+
+    // Reading sales data from the file
+    readSalesFromFile(sales, filename);
+
+    // Generate the reports 
+    printf("Monthly Sales Report for 2024\n");
+    printMonthlySalesReport(sales);
+
+    printf("\nSales Summary Report:\n");
+    printSalesSummaryReport(sales);
+
+    printf("\nSix-Month Moving Average Report:\n");
+    printSixMonthMovingAverage(sales);
+
+    printf("\nSales Report (Highest to Lowest):\n");
+    printSalesReportDescending(sales, months);
+
+    return 0;
 }
